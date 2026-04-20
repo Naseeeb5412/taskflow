@@ -8,8 +8,9 @@ const api = axios.create({
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
-      // Clear auth state — let the app router handle redirect
+    const url = err.config?.url || ''
+    
+    if (err.response?.status === 401 && !url.includes('/auth/login') && !url.includes('/auth/register')) {
       window.dispatchEvent(new Event('auth:logout'))
     }
     return Promise.reject(err)
