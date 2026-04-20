@@ -15,6 +15,25 @@ const taskSchema = new mongoose.Schema(
       maxlength: 2000,
       default: '',
     },
+    priority: {
+      type: String,
+      enum: ['low', 'medium', 'high', 'urgent'],
+      default: 'medium',
+    },
+    dueDate: {
+      type: Date,
+      default: null,
+    },
+    label: {
+      type: String,
+      enum: ['bug', 'feature', 'improvement', 'documentation', 'design', ''],
+      default: '',
+    },
+    list: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'List',
+      required: true,
+    },
     board: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Board',
