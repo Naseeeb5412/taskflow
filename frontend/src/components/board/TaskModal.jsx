@@ -30,7 +30,7 @@ export default function TaskModal({ task, listId, lists, onClose }) {
     return e
   }
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
