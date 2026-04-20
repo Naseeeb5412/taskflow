@@ -7,15 +7,6 @@ const createToken = (id) =>
     expiresIn: '7d',
   });
 
-const sendTokenCookie = (res, token) => {
-  res.cookie('token', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
-};
-
 export const register = async (req, res, next) => {
   try {
     const errors = validationResult(req);
@@ -32,9 +23,9 @@ export const register = async (req, res, next) => {
 
     const user = await User.create({ name, email, password });
     const token = createToken(user._id);
-    sendTokenCookie(res, token);
 
     res.status(201).json({
+      token,
       user: { _id: user._id, name: user.name, email: user.email },
     });
   } catch (err) {
@@ -57,9 +48,9 @@ export const login = async (req, res, next) => {
     }
 
     const token = createToken(user._id);
-    sendTokenCookie(res, token);
 
     res.json({
+      token,
       user: { _id: user._id, name: user.name, email: user.email },
     });
   } catch (err) {
@@ -68,12 +59,7 @@ export const login = async (req, res, next) => {
 };
 
 export const logout = (req, res) => {
-  res.cookie('token', '', {
-    httpOnly: true,
-    expires: new Date(0),
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-  });
+  // Token is stored client-side; just acknowledge
   res.json({ message: 'Logged out successfully.' });
 };
 
