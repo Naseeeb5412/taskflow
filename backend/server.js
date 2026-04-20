@@ -22,11 +22,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,        // required for HTTPS (Netlify)
-  sameSite: "None"     // required for cross-site
-});
+
 
 // Routes
 app.use('/api/auth', authRoutes);
