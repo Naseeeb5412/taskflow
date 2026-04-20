@@ -6,14 +6,14 @@ const useAuthStore = create((set) => ({
   loading: true,
   error: null,
 
-  fetchMe: async () => {
-    try {
-      const { data } = await api.get('/auth/me')
-      set({ user: data.user, loading: false })
-    } catch {
-      set({ user: null, loading: false })
-    }
-  },
+ fetchMe: async () => {
+  try {
+    const { data } = await api.get('/auth/me')
+    set({ user: data.user, loading: false })
+  } catch {
+    set({ user: null, loading: false })
+  }
+},
 
   login: async (email, password) => {
   set({ error: null, loading: true })
