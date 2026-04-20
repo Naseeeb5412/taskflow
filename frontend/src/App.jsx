@@ -25,12 +25,13 @@ export default function App() {
   const fetchMe = useAuthStore((s) => s.fetchMe)
   const logout = useAuthStore((s) => s.logout)
 
-  useEffect(() => {
-    fetchMe()
-    const handler = () => logout()
-    window.addEventListener('auth:logout', handler)
-    return () => window.removeEventListener('auth:logout', handler)
-  }, [])
+ useEffect(() => {
+ 
+  fetchMe()
+  const handler = () => logout()
+  window.addEventListener('auth:logout', handler)
+  return () => window.removeEventListener('auth:logout', handler)
+}, [])
 
   return (
     <Routes>
