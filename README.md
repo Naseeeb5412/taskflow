@@ -9,7 +9,7 @@ A full-stack task management application inspired by Trello. Users can organize 
 **Frontend:** React 18, Vite, Tailwind CSS, Zustand, dnd-kit  
 **Backend:** Node.js, Express, MongoDB, Mongoose  
 **Authentication:** JWT (HTTP-only cookies), bcrypt  
-**Deployment:** Railway / Render (backend), Vercel (frontend)
+**Deployment:** Railway / Render (backend), Netlify (frontend)
 
 ---
 
