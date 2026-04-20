@@ -3,7 +3,10 @@ import User from '../models/User.model.js';
 
 export const protect = async (req, res, next) => {
   try {
-    const token = req.cookies?.token;
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.startsWith('Bearer ')
+      ? authHeader.slice(7)
+      : null;
 
     if (!token) {
       return res.status(401).json({ message: 'Not authenticated. Please log in.' });
