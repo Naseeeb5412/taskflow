@@ -16,18 +16,19 @@ const useAuthStore = create((set) => ({
   },
 
   login: async (email, password) => {
-    set({ error: null })
-    const { data } = await api.post('/auth/login', { email, password })
-    set({ user: data.user })
-    return data.user
-  },
+  set({ error: null, loading: true })
+  const { data } = await api.post('/auth/login', { email, password })
+  set({ user: data.user, loading: false })   // ← add loading: false
+  return data.user
+},
 
-  register: async (name, email, password) => {
-    set({ error: null })
-    const { data } = await api.post('/auth/register', { name, email, password })
-    set({ user: data.user })
-    return data.user
-  },
+register: async (name, email, password) => {
+  set({ error: null, loading: true })
+  const { data } = await api.post('/auth/register', { name, email, password })
+  set({ user: data.user, loading: false })   // ← add loading: false
+  return data.user
+},
+
 
   logout: async () => {
     await api.post('/auth/logout')
